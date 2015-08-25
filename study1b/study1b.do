@@ -163,14 +163,14 @@ estat boot, bc percentile
 ** Table S2: Orthogonal Contrasts
 ** =============================================================================
 foreach var of varlist stigma diss leakiness inference2 inference1 {
-	di "Orthogonal Contrast: `var'"
+	display "Orthogonal Contrast: `var'"
 	anova `var' cond2
 	contrast {cond2 3 -1 -1 -1} {cond2 1 1 -1 -1} {cond2 -1 -1 3 -1} {cond2 -2 -2 3 1}, effects
 	matrix `var' = r(F)
-	di "Carrot vs Stick: r = " sqrt(`var'[1,1]/(e(df_r)+e(F)*e(df_m)))
-	di "Costs to Overweight Employees: r = " sqrt(`var'[1,2]/(e(df_r)+e(F)*e(df_m)))
-	di "Costs to Healthy-weight Employees: r = " sqrt(`var'[1,3]/(e(df_r)+e(F)*e(df_m)))
-	di "Costs to Employers: r = " sqrt(`var'[1,4]/(e(df_r)+e(F)*e(df_m)))
+	display "Carrot vs Stick: r = " sqrt(`var'[1,1]/(e(df_r)+e(F)*e(df_m)))
+	display "Costs to Overweight Employees: r = " sqrt(`var'[1,2]/(e(df_r)+e(F)*e(df_m)))
+	display "Costs to Healthy-weight Employees: r = " sqrt(`var'[1,3]/(e(df_r)+e(F)*e(df_m)))
+	display "Costs to Employers: r = " sqrt(`var'[1,4]/(e(df_r)+e(F)*e(df_m)))
 }
 
 ** Table S2: Pairwise Comparisons
