@@ -9,7 +9,7 @@
 ** IMPORTANT: change the working directory to wherever you have placed the files
 ** =============================================================================
 version 12.1
-cd "~/GitHub/stick-carrot/study2"
+cd "~/GitHub/sticks-carrots/study2"
 import delimited study2.csv, clear
 
 ** Sample characteristics

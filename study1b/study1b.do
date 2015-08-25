@@ -9,7 +9,7 @@
 ** IMPORTANT: change the working directory to wherever you have placed the files
 ** =============================================================================
 version 12.1
-cd "~/GitHub/stick-carrot/study1b"
+cd "~/GitHub/sticks-carrots/study1b"
 import delimited study1b.csv, clear
 
 ** Dropping one subject who was below age 18

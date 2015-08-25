@@ -9,7 +9,7 @@
 ** IMPORTANT: Need to set working directory to call on data files
 ** =============================================================================
 version 12.1
-cd "~/GitHub/stick-carrot/study1a"
+cd "~/GitHub/sticks-carrots/study1a"
 import delimited study1a.csv, clear
 
 ** Dropping subjects who fail any comprehension check items
