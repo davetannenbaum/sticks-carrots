@@ -64,4 +64,7 @@ spearman explicit choiceq1 choiceq2, star(.05)
 tab cond choice, row chi2
 logit choice1 i.cond##c.implicit, nolog
 margins cond, dydx(implicit)
-margins cond, dydx(implicit) pwcompare(effects)
+margins cond, dydx(implicit) pwcompare(effects) mcompare(bonferroni)
+margins cond, pwcompare(effects) mcompare(bonferroni)
+qui margins cond, at(implicit = (-1(.1)1))
+marginsplot, recast(line) noci

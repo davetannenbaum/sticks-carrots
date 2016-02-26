@@ -57,7 +57,7 @@ margins cond2
 ** Information Absorption: Healthy-weight Employees
 ** =============================================================================
 // combined stick vs carrot
-ttestinference2, by(cond1)
+ttest inference2, by(cond1)
 
 // testing each condition against midpoint of 0 (conducted two ways, using slightly different specifications)
 bysort cond2: ttest inference2 = 0
@@ -74,12 +74,11 @@ regress inference1 i.cond2
 margins cond2
 
 ** Information Absorption: Variance across conditions
+** Note: this analysis was removed from the final manuscript due to space constraints
 ** =============================================================================
-// note: this analysis was removed from the final manuscript due to space constraints
 table cond2, c(sd leakiness)
 sdtest leakiness, by(cond1)
 robvar leakiness, by(cond1)
-
 
 ** Table 3: Orthogonal Contrasts
 ** =============================================================================
@@ -154,3 +153,7 @@ program bootm, rclass
 end
 bootstrap r(indirect) r(direct), reps(5000) nodots: bootm
 estat boot, bc percentile
+
+// mediation of inference1 and inference2 simultaneously (requires 'khb' module)
+sem (cond1 -> inference1) (cond1 -> inference2) (inference1 -> eval) (inference2 -> eval) (cond1 -> eval), nocapslatent standardized
+khb regress eval cond1 || inference1 inference2, verbose disentangle
