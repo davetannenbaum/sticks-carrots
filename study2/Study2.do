@@ -49,7 +49,6 @@ margins, at(explicit = (`elow' `ehigh'))
 // implicit and explicit anti-fat bias
 logit choice1 implicit explicit, robust
 margins, dydx(implicit explicit)
-margins, at(implicit = (`ilow' `ihigh') explicit = (`elow' `ehigh'))
 
 ** Policy Rationales
 ** =============================================================================
