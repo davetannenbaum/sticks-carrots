@@ -1,4 +1,4 @@
-###Code and Data for Tannenbaum et al. (2013) "Incentivizing wellness in the workplace: Sticks (not carrots) send stigmatizing signals"###
+### Code and Data for Tannenbaum et al. (2013) "Incentivizing wellness in the workplace: Sticks (not carrots) send stigmatizing signals" ###
 
 Contains raw data and STATA analysis scripts for studies reported in Tannenbaum et al. (2013). 
 
