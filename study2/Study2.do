@@ -65,5 +65,5 @@ logit choice1 i.cond##c.implicit, nolog
 margins cond, dydx(implicit)
 margins cond, dydx(implicit) pwcompare(effects) mcompare(bonferroni)
 margins cond, pwcompare(effects) mcompare(bonferroni)
-qui margins cond, at(implicit = (-1(.1)1))
+quietly margins cond, at(implicit = (-1.5(.1)1.25))
 marginsplot, recast(line) noci
