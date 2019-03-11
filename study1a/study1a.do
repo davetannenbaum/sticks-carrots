@@ -2,19 +2,16 @@
 ** This file: study1a.do
 ** Format: Stata 12.1 do-file
 ** Author: David Tannenbaum <davetannenbaum@gmail.com>
-** Purpose: Analyses of findings in Study 1a of Tannenbaum et al., 2013
-** "Worksite Wellness Programs: Stick (Not Carrots) Send Stigmatizing Signals"
 ** =============================================================================
 
-** IMPORTANT: Need to set working directory to call on data files
+** Calling data
 ** =============================================================================
 version 12.1
-cd "~/GitHub/sticks-carrots/study1a"
-import delimited study1a.csv, clear
+import delimited "https://raw.githubusercontent.com/davetannenbaum/sticks-carrots/master/study1a/study1a.csv", clear
 
 ** Dropping subjects who fail any comprehension check items
 ** =============================================================================
-gen cc_pass = 1
+generate cc_pass = 1
 replace cc_pass = 0 if cc1 != 3
 replace cc_pass = 0 if cc2 != 2 & cond1==1
 replace cc_pass = 0 if cc2 != 1 & cond1==2
@@ -24,8 +21,8 @@ drop if cc2 != 1 & cond1==2
 
 ** Sample characteristics
 ** =============================================================================
-tab gender
-sum age
+tabulate gender
+summarize age
 
 ** Manipulation check
 ** =============================================================================
@@ -154,6 +151,6 @@ end
 bootstrap r(indirect) r(direct), reps(5000) nodots: bootm
 estat boot, bc percentile
 
-// mediation of inference1 and inference2 simultaneously (requires 'khb' module)
+// mediation of inference1 and inference2 simultaneously (requires 'khb' package)
 sem (cond1 -> inference1) (cond1 -> inference2) (inference1 -> eval) (inference2 -> eval) (cond1 -> eval), nocapslatent standardized
 khb regress eval cond1 || inference1 inference2, verbose disentangle

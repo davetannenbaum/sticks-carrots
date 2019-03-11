@@ -2,20 +2,17 @@
 ** This file: study2.do
 ** Format: Stata 12.1 do-file
 ** Author: David Tannenbaum <davetannenbaum@gmail.com>
-** Purpose: Analyses of findings in Study 2 of Tannenbaum et al., 2013 
-** "Worksite Wellness Programs: Stick (Not Carrots) Send Stigmatizing Signals"
 ** =============================================================================
 
-** IMPORTANT: change the working directory to wherever you have placed the files
+** Calling data
 ** =============================================================================
 version 12.1
-cd "~/GitHub/sticks-carrots/study2"
-import delimited study2.csv, clear
+import delimited "https://raw.githubusercontent.com/davetannenbaum/sticks-carrots/master/study2/study2.csv", clear
 
 ** Sample characteristics
 ** =============================================================================
-tab sex
-sum age
+tabulate sex
+summarize age
 
 ** Manipulation check
 ** =============================================================================
@@ -24,7 +21,7 @@ bysort cond: ttest choiceq5 = choiceq6
 
 ** Testing the Rarity Assumption (Do `policymakers' choose sticks infrequently?)
 ** =============================================================================
-tab choice, gen(choice)
+tabulate choice, gen(choice)
 prtest choice1 = .5
 bysort cond: prtest choice1 = .5
 
@@ -33,7 +30,7 @@ bysort cond: prtest choice1 = .5
 // implicit anti-fat bias
 logit choice1 implicit, robust
 margins, dydx(implicit)
-sum implicit
+summarize implicit
 local ilow = r(mean) - r(sd)
 local ihigh = r(mean) + r(sd)
 margins, at(implicit = (`ilow' `ihigh'))
@@ -41,7 +38,7 @@ margins, at(implicit = (`ilow' `ihigh'))
 // explicit anti-fat bias
 logit choice1 explicit, robust
 margins, dydx(explicit)
-sum explicit
+summarize explicit
 local elow = r(mean) - r(sd)
 local ehigh = r(mean) + r(sd)
 margins, at(explicit = (`elow' `ehigh'))

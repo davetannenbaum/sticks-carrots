@@ -2,23 +2,20 @@
 ** This file: study1b.do
 ** Format: Stata 12.1 do-file
 ** Author: David Tannenbaum <davetannenbaum@gmail.com>
-** Purpose: Analyses of findings in Study 1b of Tannenbaum et al., 2013 
-** "Worksite Wellness Programs: Stick (Not Carrots) Send Stigmatizing Signals"
 ** =============================================================================
 
-** IMPORTANT: change the working directory to wherever you have placed the files
+** Calling data
 ** =============================================================================
 version 12.1
-cd "~/GitHub/sticks-carrots/study1b"
-import delimited study1b.csv, clear
+import delimited "https://raw.githubusercontent.com/davetannenbaum/sticks-carrots/master/study1b/study1b.csv", clear
 
-** Dropping one subject who was below age 18
+** Dropping one participant below age 18
 ** =============================================================================
 drop if age < 18
 
 ** Dropping subjects who fail any of the comprehension check items
 ** =============================================================================
-gen cc_pass = 1
+generate cc_pass = 1
 replace cc_pass = 0 if cc1 != 3
 replace cc_pass = 0 if cc2 != 2 & cond1==1
 replace cc_pass = 0 if cc2 != 1 & cond1==2
@@ -28,8 +25,8 @@ drop if cc2 != 1 & cond1==2
 
 ** Sample characteristics
 ** =============================================================================
-tab gender
-sum age
+tabulate gender
+summarize age
 
 ** Manipulation check
 ** =============================================================================
@@ -75,9 +72,9 @@ robvar leakiness, by(cond1)
 
 ** Participant BMI scores
 ** =============================================================================
-gen bmi = (lbs/(height^2))*703.06957964
+generate bmi = (lbs/(height^2))*703.06957964
 recode bmi (0/15 = 1 "very underweight") (15.01/18.4 = 2 "underweight") (18.5/24.99 = 3 "normal") (25/29.999 = 4 "overweight") (30/34.999 = 5 "obese") (35/60 = 6 "very obese"), gen(bmi2)
-sum bmi, detail
+summarize bmi, detail
 replace bmi = . if bmi < 2 // omitting observations with suspicious BMI scores
 
 ** Creating Stigma and Job Dissatisfaction indices
@@ -136,7 +133,7 @@ rename leakiness leak
 summarize bmi
 global m = r(mean)
 global s = r(sd)
-gen mw = leak * bmi // mediator by moderator interaction
+generate mw = leak * bmi // mediator by moderator interaction
 
 // DV: Anticipated Feelings of Stigma
 capture program drop bootm3
